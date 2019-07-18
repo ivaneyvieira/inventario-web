@@ -16,11 +16,9 @@ import com.vaadin.flow.router.Route
 @PageTitle("Login")
 @StyleSheet("css/shared-styles.css")
 @AllowAll
-class LoginScreen : KComposite() {
-
+class LoginScreen: KComposite() {
   private lateinit var username: TextField
   private lateinit var password: PasswordField
-
   private val root = ui {
     flexLayout {
       setSizeFull(); className = "login-screen"
@@ -58,34 +56,34 @@ class LoginScreen : KComposite() {
           horizontalLayout {
             // buttons
             button("Login") {
-              onLeftClick { login() }
+              onLeftClick {login()}
               addThemeVariants(ButtonVariant.LUMO_SUCCESS, ButtonVariant.LUMO_PRIMARY)
             }
             button("Forgot password?") {
-              onLeftClick { showNotification(Notification("Hint: try any password")) }
+              onLeftClick {Notification("Hint: try any password").showNotification()}
               addThemeVariants(ButtonVariant.LUMO_TERTIARY)
             }
           }
-          addShortcut(ENTER.shortcut) { login() }
+          addShortcut(ENTER.shortcut) {login()}
         }
       }
     }
   }
 
   private fun login() {
-    if (Session.loginManager.signIn(username.value, password.value)) {
-      ui.get().navigate("")
-    } else {
-      showNotification(Notification("Login failed. Please check your username and password and try again."))
+    if(Session.loginManager.signIn(username.value, password.value)) {
+      ui.get()
+        .navigate("")
+    }
+    else {
+      Notification("Login failed. Please check your username and password and try again.").showNotification()
       username.focus()
     }
   }
 
-  private fun showNotification(notification: Notification) {
-    // keep the notification visible a little while after moving the
-    // mouse, or until clicked
-    notification.duration = 2000
-    notification.open()
+  private fun Notification.showNotification() {
+    this.duration = 2000
+    this.open()
   }
 }
 

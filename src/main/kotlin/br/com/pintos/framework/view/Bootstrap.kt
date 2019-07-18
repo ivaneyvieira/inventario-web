@@ -1,6 +1,5 @@
 package br.com.pintos.framework.view
 
-
 import br.com.pintos.framework.view.vaadin10.LoggedInUserResolver
 import br.com.pintos.framework.view.vaadin10.Session
 import br.com.pintos.framework.view.vaadin10.User
@@ -14,28 +13,26 @@ import javax.servlet.annotation.WebListener
 
 @WebListener
 class Bootstrap: ServletContextListener {
-    override fun contextInitialized(sce: ServletContextEvent?) {
-        log.info("Starting up")
-
-       //INICIALIZA DB
-
-        // setup security
-        VaadinOnKotlin.loggedInUserResolver = object : LoggedInUserResolver {
-            override fun isLoggedIn(): Boolean = Session.loginManager.isLoggedIn
-            override fun getCurrentUserRoles(): Set<String> = Session.loginManager.getCurrentUserRoles()
-        }
-
-        log.info("Initialization complete")
+  override fun contextInitialized(sce: ServletContextEvent?) {
+    log.info("Starting up")
+    //INICIALIZA DB
+    // setup security
+    VaadinOnKotlin.loggedInUserResolver = object: LoggedInUserResolver {
+      override fun isLoggedIn(): Boolean = Session.loginManager.isLoggedIn
+      override fun getCurrentUserRoles(): Set<String> = Session.loginManager.getCurrentUserRoles()
     }
 
-    override fun contextDestroyed(sce: ServletContextEvent?) {
-        log.info("Shutting down")
-        log.info("Destroying VaadinOnKotlin")
-        VaadinOnKotlin.destroy()
-        log.info("Shutdown complete")
-    }
+    log.info("Initialization complete")
+  }
 
-    companion object {
-        private val log = LoggerFactory.getLogger(Bootstrap::class.java)
-    }
+  override fun contextDestroyed(sce: ServletContextEvent?) {
+    log.info("Shutting down")
+    log.info("Destroying VaadinOnKotlin")
+    VaadinOnKotlin.destroy()
+    log.info("Shutdown complete")
+  }
+
+  companion object {
+    private val log = LoggerFactory.getLogger(Bootstrap::class.java)
+  }
 }

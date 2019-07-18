@@ -9,22 +9,17 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.*
 import javax.servlet.http.HttpServletResponse
 
-/**
- * View shown when trying to navigate to a view that does not exist using
- */
-@ParentLayout(MainLayout::class)
-class ErrorView : KComposite(), HasErrorParameter<NotFoundException> {
-
-    private lateinit var explanation: Span
-    private val root = ui {
-        verticalLayout {
-            h1("The view could not be found.")
-            explanation = span()
-        }
+class ErrorView: KComposite(), HasErrorParameter<NotFoundException> {
+  private lateinit var explanation: Span
+  private val root = ui {
+    verticalLayout {
+      h1("The view could not be found.")
+      explanation = span()
     }
+  }
 
-    override fun setErrorParameter(event: BeforeEnterEvent, parameter: ErrorParameter<NotFoundException>): Int {
-        explanation.text = ("Could not navigate to '${event.location.path}'.")
-        return HttpServletResponse.SC_NOT_FOUND
-    }
+  override fun setErrorParameter(event: BeforeEnterEvent, parameter: ErrorParameter<NotFoundException>): Int {
+    explanation.text = ("Could not navigate to '${event.location.path}'.")
+    return HttpServletResponse.SC_NOT_FOUND
+  }
 }

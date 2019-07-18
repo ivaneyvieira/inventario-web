@@ -20,3 +20,5 @@ class AbstractInitListener : VaadinServiceInitListener {
         }
     }
 }
+
+// br.com.pintos.framework.view.AbstractInitListener
