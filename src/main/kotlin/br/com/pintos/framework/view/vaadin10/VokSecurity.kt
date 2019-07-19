@@ -6,10 +6,7 @@ import com.vaadin.flow.router.InternalServerError
 import com.vaadin.flow.router.Route
 
 object VokSecurity {
-  /**
-   * Checks the permissions of given view. If the parent layout is also annotated with [Route], we'll recursively check that as well.
-   * @param viewClass the Vaadin 10 view. Must be a [Component] annotated with [Route].
-   */
+
   fun checkPermissionsOfView(viewClass: Class<*>) {
     if(viewClass == InternalServerError::class.java) {
       // allow

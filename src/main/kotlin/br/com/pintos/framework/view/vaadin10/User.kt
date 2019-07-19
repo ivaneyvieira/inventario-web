@@ -24,8 +24,6 @@ class LoginManager: Serializable {
   private fun login(user: User) {
     check(this.user == null) {"An user is already logged in"}
     this.user = user
-    // this will cause the UI to be re-created. Since the user is now logged in and present in the session,
-    // the UI should now initialize properly and should not show the LoginView.
     UI.getCurrent()
       .page.reload()
   }
