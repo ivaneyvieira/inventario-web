@@ -11,12 +11,12 @@ import javax.servlet.ServletContextEvent
 import javax.servlet.ServletContextListener
 import javax.servlet.annotation.WebListener
 
-@WebListener
-class Bootstrap: ServletContextListener {
+//@WebListener
+class Bootstrap(val initDatabase: DatabaseInit): ServletContextListener {
   override fun contextInitialized(sce: ServletContextEvent?) {
     log.info("Starting up")
-    //INICIALIZA DB
-    // setup security
+    initDatabase.config()
+    Session.loginManager.listaUser = initDatabase.listaUser.toMutableSet()
     VaadinOnKotlin.loggedInUserResolver = object: LoggedInUserResolver {
       override fun isLoggedIn(): Boolean = Session.loginManager.isLoggedIn
       override fun getCurrentUserRoles(): Set<String> = Session.loginManager.getCurrentUserRoles()
@@ -36,3 +36,10 @@ class Bootstrap: ServletContextListener {
     private val log = LoggerFactory.getLogger(Bootstrap::class.java)
   }
 }
+
+interface DatabaseInit {
+  val listaUser: Set<User>
+
+  fun config()
+}
+

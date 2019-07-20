@@ -7,7 +7,7 @@ import br.com.pintos.framework.view.vaadin10.loginManager
 import com.vaadin.flow.server.ServiceInitEvent
 import com.vaadin.flow.server.VaadinServiceInitListener
 
-class AbstractInitListener : VaadinServiceInitListener {
+class AppInitListener : VaadinServiceInitListener {
     override fun serviceInit(initEvent: ServiceInitEvent) {
         initEvent.source.addUIInitListener { uiInitEvent ->
             uiInitEvent.ui.addBeforeEnterListener { enterEvent ->
@@ -21,4 +21,4 @@ class AbstractInitListener : VaadinServiceInitListener {
     }
 }
 
-// br.com.pintos.framework.view.AbstractInitListener
+// br.com.pintos.framework.view.AppInitListener

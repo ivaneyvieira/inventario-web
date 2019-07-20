@@ -6,10 +6,8 @@ import com.vaadin.flow.router.InternalServerError
 import com.vaadin.flow.router.Route
 
 object VokSecurity {
-
   fun checkPermissionsOfView(viewClass: Class<*>) {
     if(viewClass == InternalServerError::class.java) {
-      // allow
       return
     }
     require(Component::class.java.isAssignableFrom(viewClass)) {"$viewClass is not a subclass of Component"}
